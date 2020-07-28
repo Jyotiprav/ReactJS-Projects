@@ -1,3 +1,4 @@
+// All the imports 
 const express = require('express');
 const mongoose=require("mongoose");
 const app = express();
@@ -7,20 +8,24 @@ const PORT = 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// ******************* Connection with database ********************************
 mongoose.connect('mongodb://127.0.0.1:27017/contacts', { useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
+// ******************* Create contact schema and model ********************************
 const contactSchema={
     contact_name:String,
     contact_number:Number,
     contact_type:String
 }
-
 const ContactDB=mongoose.model("contacts",contactSchema);
 
+// ******************* Functions for different requests ********************************
+
+// request for home page/contact list page and display all the entries of database
 app.get('/',function(req, res) {
     ContactDB.find(function(err, foundItems) {
         if (err) {
@@ -30,6 +35,8 @@ app.get('/',function(req, res) {
         }
     });
 });
+
+
 app.get('/:id',function(req, res) {
     let id = req.params.id;
     ContactDB.findById(id, function(err, foundItem) {

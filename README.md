@@ -1,2 +1,5 @@
 # Mern-contact-book-app
-Created Using React, Node, MongoDB and Express
+Basic CRUD application created Using React, Node, MongoDB and Express for managing your contact numbers.
+
+![](img.gif)
+
